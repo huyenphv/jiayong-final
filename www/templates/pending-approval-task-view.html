@@ -1,0 +1,78 @@
+<ion-view view-title="{{task.name}}" animation="no-animation" cache-view="false" hide-back-button ="false">
+  <ion-content>
+    <div class="list card">	
+	      <div class="padding-vertical assertive text-center" ng-show="message" id="message">{{message}}</div>
+		  <div class="item item-icon-left item-text-wrap">
+		  	<label class="item-stacked-label">
+        	<span class="input-label">Description</span></label>
+		    <i class="icon ion-clipboard"></i>
+    			{{task.description}}
+		  </div>
+
+		  <div class="item item-icon-left item-text-wrap">
+		  	<label class="item-stacked-label">
+        	<span class="input-label">Status</span></label>
+		    <i class="icon ion-information-circled"></i>
+
+		    	<!-- status : In Progress -->
+		    	<div ng-if="(task.isAvailable == 'false' && task.isCompleted == 'false' && task.isPending == 'true')">
+		    		Pending
+		    	</div>
+
+		    	<!-- status : Available -->
+		    	<div ng-if="(task.isAvailable == 'true')">
+		    		Approved
+		    	</div>
+
+		    	<!-- status : Rejected -->
+		    	<div ng-if="(task.isRejected == 'true')">
+		    		Rejected
+		    	</div>
+
+		    	
+		  </div>
+
+		  <div class="item item-icon-left item-text-wrap">
+			<label class="item-stacked-label">
+        	<span class="input-label">Earnings</span></label>
+		    <div class="col-20">
+		    	<i class="icon ion-cash"></i>
+			</div> 
+			<table>
+				<tr>
+					<td class="padding-right">Average: ${{task.Average}}</td>
+					<td class="padding-right">Good: ${{task.Good}}</td>
+					<td class="padding-right">Excellent: ${{task.Excellent}}</td>
+				</tr>
+				</table>
+		  </div>
+
+	  	 <div class="item item-icon-left item-text-wrapion">
+	  	 	<i class="icon ion-android-calendar"></i>
+		  	{{ task.startDate | date }} | {{ task.startTime | date:'shortTime' }}
+		  </div>
+
+        <div class="item item-input item-icon-left item-icon-right " ng-show = "task.isApprovedProposed == 'false'">
+          <span class="input-label"><i class="icon ion-email-unread placeholder-icon"></i></span>
+          <input type="text" min="0" class="col col-50" name="rejectedMessage" placeholder="Reject Message" ng-model="task.rejectedMessage" required></input>
+           <span class="input-label"> 
+            <i ng-show="editProposedTaskForm.rejectedMessage.$dirty" class="icon" ng-class="{ 'ion-ios7-close assertive' : editProposedTaskForm.rejectedMessage.$invalid , 'ion-ios7-checkmark positive' : editProposedTaskForm.rejectedMessage.$valid }"></i>
+          </span>
+         </div>
+
+		  <!-- Send task for approval -->
+		  <div class = "row" ng-show="task.isApprovedProposed == 'false' && task.isPending == 'true'">
+		  
+		  	<button class="col col-33 button button-balanced" type="button" ng-click="approveTask()" >
+		  		Approve Task
+		  	</button>
+		  	<button class="col col-33 button button-positive" type="button" ng-click="updateTask(task)" >
+		  		Counter Propose
+		  	</button>
+		  	<button class="col col-33 button button-assertive" type="button" ng-click="rejectTask()" >
+		  		Reject
+		  	</button>
+		</div>
+
+  </ion-content>
+</ion-view>

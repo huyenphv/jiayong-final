@@ -1,0 +1,49 @@
+<ion-view view-title="{{task.name}}" animation="no-animation" cache-view="false" hide-back-button ="false">
+  <ion-content>
+    <div class="list card">	
+	      <div class="padding-vertical assertive text-center" ng-show="message" id="message">{{message}}</div>
+		  <div class="item item-icon-left item-text-wrap">
+		  	<label class="item-stacked-label">
+        	<span class="input-label">Description</span></label>
+		    <i class="icon ion-clipboard"></i>
+    			{{task.description}}
+		  </div>
+<!--   		  <div class="item item-icon-left item-text-wrap">
+		  	<label class="item-stacked-label">
+        	<span class="input-label"><i class="icon ion-android-image"></i></span></label>
+		    
+    		<img  my-src ng-repeat="photo in task.photos" photo="photo" data-size="org" class="full-image"/>
+    		<img  src= "img/venkman.jpg" data-size="org" class="full-image"/>
+		  </div> -->
+       <div class="item item-icon-left item-text-wrap" ng-show = "task.isCompleted == 'true' ">
+          <label class="item-stacked-label">
+            <span class="input-label"><i class="icon ion-android-image"></i></span></label>
+          
+          <img  my-src ng-repeat="photo in event.photos track by photo.id" photo="photo.image" data-size="org" class="full-image"/>
+          <img  ng-src="img/shiny_dishes.jpg" data-size="org" class="full-image" ng-show = "showSink"/>
+          <img  ng-src="img/cleaned_sink.jpg" data-size="org" class="full-image" ng-show = "!showSink"/>
+        </div>
+          <div class="row" ng-show = "task.isCompleted == 'true'">
+             <div class="col col-25 item item-image" ng-click = "switchImage()" ng-show = "showSink" >
+                <img ng-src="img/cleaned_sink.jpg">
+             </div>
+               <div class="col col-25 item item-image" ng-click = "switchImage()" ng-show = "!showSink" >
+                <img ng-src="img/shiny_dishes.jpg">
+             </div>
+          </div>
+        <!-- assign to -->
+        <ion-item class="item item-icon-left item-icon-right ">
+          <i class="icon dark ion-cash"></i>
+          <span class="fancy">Reward ...</span>
+          <span> <b>${{task.reward}}</b>
+          </span>
+        </ion-item>
+
+	  	 <div class="item item-icon-left item-text-wrapion">
+	  	 	<i class="icon ion-android-calendar"></i>
+		  	{{ task.startDate | date }} | {{ task.startTime | date:'shortTime' }}
+		  </div>
+
+
+  </ion-content>
+</ion-view>

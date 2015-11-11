@@ -1,0 +1,31 @@
+<ion-view title="Available Tasks" animation="no-animation" cache-view="false" hide-back-button ="true">
+  <ion-nav-buttons side="right">
+    <button class="button button-icon button-clear button-dark ion-android-add" ui-sref="menu.tab.propose-task"></button>
+  </ion-nav-buttons>
+  <ion-nav-buttons side="left">
+    <button menu-toggle="left"class="button button-icon button-clear button-dark ion-navicon"></button>
+  </ion-nav-buttons>
+  <ion-content class="has-header">
+    <ion-list>
+      <div ng-if="tasksAvailable.length > 0">
+        <a href ui-sref="menu.tab.view({id:task.id})" ng-repeat="task in tasksAvailable">
+          <ion-item class="item"> 
+          <h1>{{task.title}}</h1>
+          <p><i>{{task.desc}}<i></p>
+          <span>
+            ${{(task.min+task.max)/2 | number:0}}
+          </span>
+        </ion-item>
+      </a>
+    </div>
+
+    <ion-list can-swipe="true" ng-show="tasksAvailable.length == 0">
+      <center>
+        <h1>Oops.</h1>
+        <p>Seems like there isn't any tasks!</p>
+
+        <button class="button button-balanced" type="button"  ui-sref="menu.tab.create-task">Propose Task!</button>
+      </center>
+    </ion-list>
+  </ion-content>
+</ion-view>

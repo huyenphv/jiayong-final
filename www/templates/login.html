@@ -1,0 +1,42 @@
+<div class="bar-stable bar bar-header nav-bar disable-user-behavior">
+  <div class="buttons left-buttons">
+ 
+  </div>
+  <h1 class="title" style="left: 86px; right: 86px;">JiaYong Login</h1>
+  <div class="buttons right-buttons"></div>
+</div>
+
+<ion-view title="Login" hide-back-button="true" hide-nav-bar="true">
+  <ion-nav-buttons side="left">
+    <a class="button button-icon ion-ios7-arrow-back" ui-sref="welcome"> Back</a>
+  </ion-nav-buttons>
+  <ion-content class="has-header" scroll="false">
+    <div class="padding-vertical assertive text-center" ng-show="message">
+    {{message}}
+    </div>
+    <form name="loginForm" ng-submit="tryLogin(loginData)" novalidate>
+      <div class="list">
+        <label class="item item-input item-icon-right">
+          <input type="email" name="email" placeholder="Email" ng-model="loginData.email" required></input>
+          <span class="input-label"> 
+                  <i ng-show="loginForm.email.$dirty" class="icon" ng-class="{ 'ion-ios7-close assertive' : loginForm.email.$invalid , 'ion-ios7-checkmark positive' : loginForm.email.$valid }"></i>
+                </span>
+                
+        </label>
+        <label class="item item-input item-icon-right">
+          <input type="password" name="password" placeholder="Password" ng-model="loginData.password" required></input>
+          <span class="input-label"> 
+                  <i ng-show="loginForm.password.$dirty" class="icon" ng-class="{ 'ion-ios7-close assertive' : loginForm.password.$invalid , 'ion-ios7-checkmark positive' : loginForm.password.$valid }"></i>
+                </span>
+                
+        </label>
+        <div>
+          <button class="button button-block button-energized" type="submit" ng-disabled="loginForm.$invalid">Login</button>
+        </div>
+        <div class="text-center">
+            Or <a ui-sref="signup">Create an account</a>
+        </div>
+      </div>
+    </form>
+  </ion-content>
+</ion-view>

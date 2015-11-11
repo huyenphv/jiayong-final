@@ -1,0 +1,67 @@
+<ion-view view-title="{{task.name}}" animation="no-animation" cache-view="false" hide-back-button ="false">
+  <ion-content>
+    <div class="list card">	
+		  <div class="item item-icon-left item-text-wrap">
+		  	<label class="item-stacked-label">
+        	<span class="input-label">Description</span></label>
+		    <i class="icon ion-clipboard"></i>
+    			{{task.description}}
+		  </div>
+
+		  <div class="item item-icon-left item-text-wrap">
+		  	<label class="item-stacked-label">
+        	<span class="input-label">Status</span></label>
+		    <i class="icon ion-information-circled"></i>
+
+		    	<!-- status : Pending -->
+		    	<div>
+		    		Pending
+		    	</div>
+
+		    	
+		  </div>
+
+		  <div class="item item-icon-left item-text-wrap" ng-if="task.isCompleted == 'false'">
+			<label class="item-stacked-label">
+        	<span class="input-label">Earnings</span></label>
+		    <div class="col-20">
+		    	<i class="icon ion-cash"></i>
+			</div> 
+			<table>
+				<tr>
+					<td class="padding-right">Average: ${{task.Average}}</td>
+					<td class="padding-right">Good: ${{task.Good}}</td>
+					<td class="padding-right">Excellent: ${{task.Excellent}}</td>
+				</tr>
+				</table>
+		  </div>
+
+		 <div class="item item-icon-left item-text-wrapion">
+	  	 	<i class="icon ion-android-calendar"></i>
+		  	{{ task.startDate | date }} | {{ task.startTime | date:'shortTime' }}
+		  </div>
+		  
+        <ion-item class="item item-icon-left item-icon-right " ng-click="showContacts()">
+          <i class="icon dark ion-android-contacts"></i>
+          <span class="fancy">Submit To ...</span>
+            {{submitToUser.name}}
+          </span>
+        </ion-item>
+
+		<div class="item item-icon-left item-text-wrap" ng-show = "task.isRejected == 'true' && task.isApprovedProposed == 'false'">
+			<i class="icon ion-email-unread"></i>
+			<span>{{task.rejectedMessage}}</span>
+		</div>
+		
+		 <ion-item ng-show="task.isRejected == 'true' && task.isPending == 'true'">
+		  <center>
+		  	<button class="button button-balanced" type="button" ng-click = "acceptProposal(task)">
+		  		Accept Proposal
+		  	</button>
+		  	<button class="button button-positive" type="button" ng-click = "goRepropose(task)">
+		  		Re-propose
+		  	</button>
+		  </center>
+		</ion-item>
+  </ion-content>
+</ion-view>

@@ -1,0 +1,86 @@
+<ion-view title="New Task">
+  <ion-content has-header="true" padding="false">
+    <form novalidate name="newTaskForm" ng-submit="tryCreate()">
+      <div class="padding-vertical assertive text-center" ng-show="message" id="message">{{message}}</div>
+      <ion-list>
+        <!-- task name -->
+        <ion-item class="item item-input item-icon-left item-icon-right">
+          <span class="input-label"><i class="icon ion-android-create placeholder-icon"></i></span>
+          <input type="text" class="col col-50" name="title" ng-minlength="3" placeholder="Task's name" ng-model="task.name" required></input>
+           <span class="input-label"> 
+            <i ng-show="newTaskForm.title.$dirty" class="icon" ng-class="{ 'ion-ios7-close assertive' : newTaskForm.title.$invalid , 'ion-ios7-checkmark positive' : newTaskForm.title.$valid }"></i>
+          </span>
+        </ion-item>
+        
+        <!-- task start date -->
+        <ion-item class="item item-input item-icon-left item-icon-right ">
+          <span class="input-label"><i class="icon ion-android-calendar placeholder-icon"></i></span>
+          <input type="text" class="col col-50" name="startDate" placeholder="Set Date (dd-mm-yyyy)" ng-model="task.startDate" id="date" ng-click="showDate()" required/> 
+           <span class="input-label"> 
+            <i ng-show="newTaskForm.startDate.$dirty" class="icon" ng-class="{ 'ion-ios7-close assertive' : newTaskForm.startDate.$invalid , 'ion-ios7-checkmark positive' : newTaskForm.startDate.$valid }"></i>
+          </span>
+        </ion-item>
+      
+        <!-- task start time -->
+        <ion-item class="item item-input item-icon-left item-icon-right ">
+          <span class="input-label"><i class="icon ion-android-time placeholder-icon"></i></span>
+          <input type="hidden" ng-model="task.time_in_ms"/>
+          <input type="text" class="col col-50" name="startTime" placeholder="Set Time (hh:mm)" ng-model="task.startTime" id="time" ng-click="showTime()" required/>
+           <span class="input-label"> 
+            <i ng-show="newTaskForm.startTime.$dirty" class="icon" ng-class="{ 'ion-ios7-close assertive' : newTaskForm.startTime.$invalid , 'ion-ios7-checkmark positive' : newTaskForm.startTime.$valid }"></i>
+          </span>
+        </ion-item>
+
+        <!-- task description -->
+        <ion-item class="item item-input item-icon-left item-icon-right">
+          <span class="input-label"><i class="icon ion-document-text placeholder-icon"></i></span>
+          <input type="text" class="col col-50" name="description" placeholder="Describe the task" ng-model="task.description" required></input>
+           <span class="input-label"> 
+            <i ng-show="newTaskForm.description.$dirty" class="icon" ng-class="{ 'ion-ios7-close assertive' : newTaskForm.description.$invalid , 'ion-ios7-checkmark positive' : newTaskForm.description.$valid }"></i>
+          </span>
+        </ion-item>
+
+        <!-- rewards -->
+        <ion-item class="item item-input item-icon-left item-icon-right ">
+          <span class="input-label"><i class="icon ion-sad-outline placeholder-icon"></i></span>
+          <input type="number" min="0" class="col col-50" name="averageAmount" placeholder="Average Amount" ng-model="task.averageAmount" required></input>
+           <span class="input-label"> 
+            <i ng-show="newTaskForm.averageAmount.$dirty" class="icon" ng-class="{ 'ion-ios7-close assertive' : newTaskForm.averageAmount.$invalid , 'ion-ios7-checkmark positive' : newTaskForm.averageAmount.$valid }"></i>
+          </span>
+        </ion-item>
+
+        <ion-item class="item item-input item-icon-left item-icon-right ">
+          <span class="input-label"><i class="icon ion-happy-outline placeholder-icon"></i></span>
+          <input type="number" min="0" class="col col-50" name="goodAmount" placeholder="Good Amount" ng-model="task.goodAmount" required></input>
+           <span class="input-label"> 
+            <i ng-show="newTaskForm.goodAmount.$dirty" class="icon" ng-class="{ 'ion-ios7-close assertive' : newTaskForm.goodAmount.$invalid , 'ion-ios7-checkmark positive' : newTaskForm.goodAmount.$valid }"></i>
+          </span>
+        </ion-item>
+
+        <ion-item class="item item-input item-icon-left item-icon-right ">
+          <span class="input-label"><i class="icon ion-happy placeholder-icon"></i></span>
+          <input type="number" min="0" class="col col-50" name="excellentAmount" placeholder="Excellent Amount" ng-model="task.excellentAmount" required></input>
+           <span class="input-label"> 
+            <i ng-show="newTaskForm.excellentAmount.$dirty" class="icon" ng-class="{ 'ion-ios7-close assertive' : newTaskForm.excellentAmount.$invalid , 'ion-ios7-checkmark positive' : newTaskForm.excellentAmount.$valid }"></i>
+          </span>
+        </ion-item>
+                
+        <!-- assign to -->
+<!--         <ion-item class="item item-icon-left item-icon-right " ng-click="showContacts()">
+          <i class="icon dark ion-android-contacts"></i>
+          <span class="fancy">Assign To ...</span>
+          <select ng-model = "task.assignTo">
+            <option ng-repeat = "contact in contacts" value = "{{contact.id}}">{{contact.name}}</option>
+          </select>
+          </span>
+        </ion-item> -->
+
+      </ion-list>
+
+      <div class="padding-vertical">
+        <button type ="submit" ng-disabled="newTaskForm.$invalid" class="button button-dark button-full">Create Task</button>
+      </div>
+    </form>
+   
+  </ion-content>
+</ion-view>

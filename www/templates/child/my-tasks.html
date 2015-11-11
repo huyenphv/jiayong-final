@@ -1,0 +1,293 @@
+
+<ion-view title="My Tasks" animation="no-animation" cache-view="false" hide-back-button ="true">
+
+  <ion-nav-buttons side="left">
+    <button menu-toggle="left"class="button button-icon button-clear button-dark ion-navicon"></button>
+  </ion-nav-buttons>
+  
+  <ion-nav-buttons side="right">
+    <button class="button button-icon button-clear button-dark ion-ios-plus-outline" ui-sref="menu.tab.propose-task"></button>
+ </ion-nav-buttons>
+  
+ 
+  <ion-content>
+    <ion-refresher pulling-text="Pull to refresh" on-refresh="refresh()"></ion-refresher>
+  <!-- tab for available tasks -->
+  <div class="list">
+
+    <div class="item item-divider" ng-class="{'active' : activeTab == 1}" ng-click = "changeActiveTab(1)">
+      On-going
+    </div>
+
+   <div ng-show="activeTab==1">
+      <div class = "list" can-swipe="true" ng-show="currentUser.inProgressTasks.length != 0" >
+         <div ng-repeat="task in currentUser.inProgressTasks" ng-click = "detail(task)" >
+
+             <a class="item item-thumbnail-left">
+              <img src="img/venkman.jpg">
+              <h2>{{task.name}}</h2>
+              <p>{{task.description}}</p>
+              <small>{{ task.startDate | date }} | {{ task.startTime | date:'shortTime' }}</small><br/>
+              <small> ${{task.Average}} </small>
+            </a>
+
+        </div>
+      </div>
+      <div class = "list" can-swipe="true" ng-show="currentUser.inProgressTasks == 0">
+        <center>
+          <h2>Hey, {{currentUser.name}}</h2>
+          <p>You have no on-going task</p>
+          <button class="button button-balanced" type="button"  ui-sref="menu.tab.available-tasks">Take up One</button>
+          <br/>
+          <br/>
+        </center>
+      </div>
+  </div>
+    <div class="item item-divider" ng-class="{'active' : activeTab == 4}" ng-click = "changeActiveTab(4)">
+      Proposed
+  </div>   
+  <div ng-show="activeTab==4">
+      <div class = "list" can-swipe="true" ng-show="currentUser.proposedTasks.length != 0">
+        <div ng-repeat="task in currentUser.proposedTasks | filter:  {isRejected : 'false'}" ng-click = "viewProposed(task)" >
+             <a class="item item-thumbnail-left">
+              <img src="img/venkman.jpg">
+              <span class="item-note">
+                Status
+              </span>
+              <h2>{{task.name}}</h2>
+              <span class="item-note">
+                <h3>Pending</h3>
+              </span>
+              <p>{{task.description}}</p>
+              <small>{{ task.startDate | date }} | {{ task.startTime | date:'shortTime' }}</small><br/>
+              <small> ${{task.Average}} </small>
+            </a>
+
+        </div>
+      </div>
+      <div class = "list" can-swipe="true" ng-show="currentUser.proposedTasks.length != 0">
+        <div ng-repeat="task in currentUser.proposedTasks | filter:  {isRejected : 'true'}" ng-click = "viewProposed(task)">
+            <a class="item item-thumbnail-left">
+              <img src="../img/venkman.jpg">
+              <span class="item-note">
+                Status
+              </span>
+              <h2>{{task.name}}</h2>
+              <span class="item-note">
+                <h3>Rejected</h3>
+              </span>
+              <p>{{task.description}}</p>
+              <small>{{ task.startDate | date }} | {{ task.startTime | date:'shortTime' }}</small><br/>
+              <small> ${{task.Average}} </small>
+            </a>
+
+        </div>
+      </div>
+      <div class = "list" can-swipe="true" ng-show="currentUser.rejectedTasks.length != 0">
+        <div ng-repeat="task in currentUser.rejectedTasks | filter:  {isProposed : 'true'}" ng-click = "viewProposed(task)">
+            <a class="item item-thumbnail-left">
+              <img src="../img/venkman.jpg">
+              <span class="item-note">
+                Status
+              </span>
+              <h2>{{task.name}}</h2>
+              <span class="item-note">
+                <h3>Rejected</h3>
+              </span>
+              <p>{{task.description}}</p>
+              <small>{{ task.startDate | date }} | {{ task.startTime | date:'shortTime' }}</small><br/>
+              <small> ${{task.Average}} </small>
+            </a>
+
+        </div>
+      </div>
+      <div class = "list" can-swipe="true" ng-show="currentUser.proposedTasks.length == 0 && currentUser.rejectedTasks.length == 0">
+          <center>
+            <h2>Hey, {{currentUser.name}}</h2>
+            <p>You have no pending approval proposed task</p>
+            <button class="button button-balanced" type="button"  ui-sref="menu.tab.propose-task">Propose One</button>
+            <br/>
+            <br/>
+          </center>
+      </div>
+  </div>
+  <div class="item item-divider" ng-class="{'active' : activeTab == 2}" ng-click = "changeActiveTab(2)">
+      Evaluation
+  </div>
+  <div ng-show="activeTab==2">
+      <div class = "list" can-swipe="true" ng-show="currentUser.pendingEvaluateTasks != 0">
+         <div ng-repeat="task in currentUser.pendingEvaluateTasks" ng-click = "viewCompleted(task)">
+
+             <a class="item item-thumbnail-left">
+              <img src="img/venkman.jpg">
+              <span class="item-note">
+                Status
+              </span>
+              <h2>{{task.name}}</h2>
+              <span class="item-note">
+                <h3>Pending</h3>
+              </span>
+              <p>{{task.description}}</p>
+              <small>{{ task.startDate | date }} | {{ task.startTime | date:'shortTime' }}</small><br/>
+              <small> ${{task.Average}} </small>
+            </a>
+
+        </div>
+      </div>
+      <div class = "list" can-swipe="true" ng-show="currentUser.rejectedTasks.length != 0">
+        <div ng-repeat="task in currentUser.rejectedTasks | filter: {isProposed : 'false'}" ng-click = "viewRejected(task)">
+             <a class="item item-thumbnail-left">
+              <img src="img/venkman.jpg">
+              <span class="item-note">
+                Status
+              </span>
+              <h2>{{task.name}}</h2>
+              <span class="item-note">
+                <h3>Rejected</h3>
+              </span>
+              <p>{{task.description}}</p>
+              <small>{{ task.startDate | date }} | {{ task.startTime | date:'shortTime' }}</small><br/>
+              <small> ${{task.Average}} </small>
+            </a>
+
+        </div>
+      </div>
+      <div class = "list" can-swipe="true" ng-show="currentUser.pendingEvaluateTasks.length == 0 && currentUser.rejectedTasks.length == 0">
+        <center>
+          <h2>Hey, {{currentUser.name}}</h2>
+          <p>You have no pending evaluation or rejected task</p>
+        <button class="button button-balanced" type="button" ng-click = "changeActiveTab(1)">Complete one</button>
+          <br/>
+          <br/>
+        </center>
+      </div>
+  </div>    
+  <div class="item item-divider" ng-class="{'active' : activeTab == 3}" ng-click = "changeActiveTab(3)">
+      Completed
+  </div>  
+  <div ng-show="activeTab==3">
+    <div class = "list" can-swipe="true" ng-show="currentUser.completedTasks != 0">
+       <div ng-repeat="task in currentUser.completedTasks" ng-click = "viewCompleted(task)">
+
+           <a class="item item-thumbnail-left">
+            <img src="img/venkman.jpg">
+            <h2>{{task.name}}</h2>
+            <p>{{task.description}}</p>
+            <small>{{ task.startDate | date }} | {{ task.startTime | date:'shortTime' }}</small><br/>
+            <small> ${{task.Average}} </small>
+          </a>
+
+      </div>
+    </div>
+    <div class = "list" can-swipe="true" ng-show="currentUser.completedTasks == 0">
+      <center>
+        <h2>Hey, {{currentUser.name}}</h2>
+        <p>You have no completed task</p>
+        <button class="button button-balanced" type="button" ng-click = "changeActiveTab(1)">Complete one</button>
+        <br/>
+        <br/>
+      </center>
+    </div>
+  </div>
+    
+</div>
+<!--   <div class="has-header" ng-if="activeTab==1">
+    <ion-list can-swipe="true" ng-show="currentUser.availableTasks.length != 0">
+      <ion-item ng-repeat="task in currentUser.availableTasks" ng-click = "detail(task)">
+
+           <a class="item item-thumbnail-left">
+            <img src="img/venkman.jpg">
+            <h2>{{task.name}}</h2>
+            <p>{{task.description}}</p>
+            <small>{{ task.startDate | date }} | {{ task.startTime | date:'shortTime' }}</small><br/>
+            <small> ${{task.Average}} </small>
+          </a>
+
+      </ion-item>
+    </ion-list>
+    <ion-list can-swipe="true" ng-show="currentUser.availableTasks.length == 0">
+      <center>
+        <h1>Oops.</h1>
+        <p>Seems like there isn't any available task!</p>
+        <button class="button button-balanced" type="button"  ui-sref="menu.tab.create-task">Create Task!</button>
+      </center>
+    </ion-list>
+  </div> -->
+  
+<!-- tab for in progress tasks -->
+
+<!-- ng-if="task.isCompleted == false && task.isPending == false"-->  
+ 
+<!--  <div ng-if="activeTab==2">
+    <ion-list can-swipe="true" ng-show="currentUser.inProgressTasks.length != 0" >
+       <ion-item ng-repeat="task in currentUser.inProgressTasks" ng-click = "viewPendingApprovalForCompletedTask(task)" >
+
+           <a class="item item-thumbnail-left">
+            <img src="img/venkman.jpg">
+            <h2>{{task.name}}</h2>
+            <p>{{task.description}}</p>
+            <small>{{ task.startDate | date }} | {{ task.startTime | date:'shortTime' }}</small><br/>
+            <small> ${{task.Average}} </small>
+          </a>
+
+      </ion-item>
+    </ion-list>
+    <ion-list can-swipe="true" ng-show="currentUser.inProgressTasks == 0">
+      <center>
+        <h1>Oops.</h1>
+        <p>Seems like you do not have any in progress task!</p>
+        <button class="button button-balanced" type="button"  ui-sref="menu.tab.create-task">Create Task!</button>
+      </center>
+    </ion-list>
+  </div> -->
+
+  <!-- tab for completed tasks -->
+
+<!--   <div ng-if="activeTab==3">
+    <ion-list can-swipe="true" ng-show="currentUser.completedTasks != 0">
+       <ion-item ng-repeat="task in currentUser.completedTasks" ng-click = "viewPendingApprovalForCompletedTask(task)">
+
+           <a class="item item-thumbnail-left">
+            <img src="img/venkman.jpg">
+            <h2>{{task.name}}</h2>
+            <p>{{task.description}}</p>
+            <small>{{ task.startDate | date }} | {{ task.startTime | date:'shortTime' }}</small><br/>
+            <small> ${{task.Average}} </small>
+          </a>
+
+      </ion-item>
+    </ion-list>
+    <ion-list can-swipe="true" ng-show="currentUser.completedTasks == 0">
+      <center>
+        <h1>Oops.</h1>
+        <p>Seems like you do not have any completed task!</p>
+      </center>
+    </ion-list>
+  </div> -->
+  <!-- tab for pending approval tasks -->
+
+<!--   <div ng-if="activeTab==4">
+    <ion-list can-swipe="true" ng-show="currentUser.pendingEvaluateTasks != 0">
+       <ion-item ng-repeat="task in currentUser.pendingEvaluateTasks" ng-click = "viewPendingApprovalForCompletedTask(task)">
+
+           <a class="item item-thumbnail-left">
+            <img src="img/venkman.jpg">
+            <h2>{{task.name}}</h2>
+            <p>{{task.description}}</p>
+            <small>{{ task.startDate | date }} | {{ task.startTime | date:'shortTime' }}</small><br/>
+            <small> ${{task.Average}} </small>
+          </a>
+
+      </ion-item>
+    </ion-list>
+    <ion-list can-swipe="true" ng-show="currentUser.pendingEvaluateTasks.length == 0">
+      <center>
+        <h1>Oops.</h1>
+        <p>Seems like you do not have any pending evaluation task!</p>
+      </center>
+    </ion-list>
+  </div> -->
+
+    
+</ion-content>
+</ion-view>

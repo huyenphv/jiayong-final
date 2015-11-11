@@ -1,0 +1,44 @@
+<div class="bar-stable bar bar-header nav-bar disable-user-behavior">
+  <div class="buttons left-buttons"><span class="">
+    <a class="button button-icon ion-ios7-arrow-back" ui-sref="login"> Back</a>
+  </span></div>
+  <h1 class="title" style="left: 86px; right: 86px;">JiaYong Signup</h1>
+  <div class="buttons right-buttons"></div>
+</div>
+
+<ion-view title="Signup" hide-back-button="true" hide-nav-bar="true">
+  <ion-content class="has-header" scroll="false">
+    <div class="padding-vertical assertive text-center" ng-show="message">
+    {{message}}
+    </div>
+    <form name="signupForm" ng-submit="trySignup(signupData)" >
+      <div class="list">
+        <label class="item item-input item-icon-right">
+          <input name="firstname" type="text" placeholder="Your full name" ng-model="signupData.name" required></input>
+          <span class="input-label"> 
+                <i ng-show="signupForm.firstname.$dirty" class="icon" ng-class="{ 'ion-ios7-close assertive' : signupForm.firstname.$invalid , 'ion-ios7-checkmark positive' : signupForm.firstname.$valid }"></i>
+          </span>
+        </label>
+
+        <label class="item item-input item-icon-right">
+          <input name="email" type="email" placeholder="Email address" ng-model="signupData.email" required></input>
+          <span class="input-label"> 
+                <i ng-show="signupForm.email.$dirty" class="icon" ng-class="{ 'ion-ios7-close assertive' : signupForm.email.$invalid , 'ion-ios7-checkmark positive' : signupForm.email.$valid }"></i>
+          </span>
+        </label>
+        <label class="item item-input item-icon-right">
+          <input name="password" type="password" placeholder="Password" ng-model="signupData.password" required></input>
+          <span class="input-label"> 
+                <i ng-show="signupForm.password.$dirty" class="icon" ng-class="{ 'ion-ios7-close assertive' : signupForm.password.$invalid , 'ion-ios7-checkmark positive' : signupForm.password.$valid }"></i>
+          </span>
+        </label>
+        <div>
+          <button ng-disabled="signupForm.$invalid" class="button button-block button-energized" type="submit">Create account</button>
+        </div>
+        <div class="text-center">
+          Or <a ui-sref="login">Already have an account?</a>
+        </div>
+      </div>
+    </form>
+  </ion-content>
+</ion-view>

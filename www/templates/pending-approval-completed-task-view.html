@@ -1,0 +1,92 @@
+<ion-view view-title="{{task.name}}" animation="no-animation" cache-view="false" hide-back-button ="false">
+  <ion-content>
+    <div class="list card">	
+	      <div class="padding-vertical assertive text-center" ng-show="message" id="message">{{message}}</div>
+		  <div class="item item-icon-left item-text-wrap">
+		  	<label class="item-stacked-label">
+        	<span class="input-label">Description</span></label>
+		    <i class="icon ion-clipboard"></i>
+    			{{task.description}}
+		  </div>
+<!--
+  		  <div class="item item-icon-left item-text-wrap" ng-show = "task.isCompleted == 'true' && task.name == 'walking the dog'">
+		  	<label class="item-stacked-label">
+        	<span class="input-label"><i class="icon ion-android-image"></i></span></label>
+		    
+    		<img  my-src ng-repeat="photo in event.photos track by photo.id" photo="photo.image" data-size="org" class="full-image"/>
+    		<img  ng-src="img/lucy.jpg" data-size="org" class="full-image"/>
+		  </div>
+              <div class="item item-icon-left item-text-wrap" ng-show = "task.isCompleted == 'true' && task.name == 'Mop the living room floor'">
+        <label class="item-stacked-label">
+          <span class="input-label"><i class="icon ion-android-image"></i></span></label>
+        
+        <img  my-src ng-repeat="photo in event.photos track by photo.id" photo="photo.image" data-size="org" class="full-image"/>
+        <img  ng-src="img/mop-floor.jpg" data-size="org" class="full-image"/>
+      </div>
+        <div class="item item-icon-left item-text-wrap" ng-show = "task.isCompleted == 'true' ">
+          <label class="item-stacked-label">
+            <span class="input-label"><i class="icon ion-android-image"></i></span></label>
+          
+          <img  my-src ng-repeat="photo in event.photos track by photo.id" photo="photo.image" data-size="org" class="full-image"/>
+          <img  ng-src="img/shiny_dishes.jpg" data-size="org" class="full-image" ng-show = "showSink"/>
+          <img  ng-src="img/cleaned_sink.jpg" data-size="org" class="full-image" ng-show = "!showSink"/>
+        </div>
+          <div class="row" ng-show = "task.isCompleted == 'true'">
+             <div class="col col-25 item item-image" ng-click = "switchImage()" ng-show = "showSink" >
+                <img ng-src="img/cleaned_sink.jpg">
+             </div>
+               <div class="col col-25 item item-image" ng-click = "switchImage()" ng-show = "!showSink" >
+                <img ng-src="img/shiny_dishes.jpg">
+             </div>
+          </div>
+
+        <!-- assign to -->
+        <img  my-src ng-repeat="photo in event.photos track by photo.id" photo="photo.image" data-size="org" class="full-image"/>
+        <img  ng-src="img/shiny_dishes.jpg" data-size="org" class="full-image" ng-show = "showSink"/>
+        <img  ng-src="img/cleaned_sink.jpg" data-size="org" class="full-image" ng-show = "!showSink"/>
+        </div>
+          <div class="row" ng-show = "task.isCompleted == 'true'">
+             <div class="col col-25 item item-image" ng-click = "switchImage()" ng-show = "showSink" >
+                <img ng-src="img/cleaned_sink.jpg">
+             </div>
+               <div class="col col-25 item item-image" ng-click = "switchImage()" ng-show = "!showSink" >
+                <img ng-src="img/shiny_dishes.jpg">
+             </div>
+        </div>
+        <ion-item class="item item-icon-left item-icon-right " ng-click="showContacts()">
+          <i class="icon dark ion-cash"></i>
+          <span class="fancy">Reward ...</span>
+          <span class="fancy" ng-show = "task.isApproved == 'true'">${{task.reward}}</span>
+<!--           <select ng-model = "task.reward" type = "number" ng-show = "task.isApproved == 'false'">
+            <option value = "{{task.Average}}">Average ({{task.Average}})</option>
+            <option value = "{{task.Good}}">Good ({{task.Good}})</option>
+            <option value = "{{task.Exellent}}">Exellent ({{task.Excellent}})</option>
+          </select> -->
+          <select name="mySelect" id="mySelect"
+          ng-options="option.type for option in data.rewardOptions track by option.amount"
+          ng-model="data.selectedOption"></select>
+          </span>
+        </ion-item>
+
+	  	<div class="item item-icon-left item-text-wrapion">
+	  	 	<i class="icon ion-android-calendar"></i>
+		  	{{ task.startDate | date }} | {{ task.startTime | date:'shortTime' }}
+		</div>
+
+        <ion-item class="item item-input item-icon-left item-icon-right " ng-show = "task.isApproved == 'false' && task.isCompleted == 'true'">
+          <span class="input-label"><i class="icon ion-email-unread placeholder-icon"></i></span>
+          <input type="text" min="0" class="col col-50" name="rejectedMessage" placeholder="Reason for reject" ng-model="task.rejectedMessage" required></input>
+         </ion-item>
+		  <!-- Send task for approval -->
+		  <div class = "row" ng-show = "task.isApproved == 'false'">
+		  
+		  	<button class="col col-50 button button-balanced" type="button" ng-click="approveTask()" >
+		  		Approve Task
+		  	</button>
+		  	<button class="col col-50 button button-assertive" type="button" ng-click="rejectTask()" >
+		  		Reject
+		  	</button>
+		</div>
+
+  </ion-content>
+</ion-view>

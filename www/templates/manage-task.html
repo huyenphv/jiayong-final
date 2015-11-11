@@ -1,0 +1,78 @@
+<ion-view title="{{task.name}}">
+  <ion-content has-header="true" padding="false">
+    <form novalidate name="editTaskForm" ng-submit="tryUpdate()">
+      <div class="padding-vertical assertive text-center" ng-show="message" id="message">{{message}}</div>
+      <ion-list>
+        
+        <!-- task start date -->
+        <ion-item class="item item-input item-icon-left item-icon-right ">
+          <span class="input-label"><i class="icon ion-android-calendar placeholder-icon"></i></span>
+          <input type="text" class="col col-50" name="startDate" placeholder="Set Date (dd-mm-yyyy)" ng-model=" task.startDate" id="date" ng-click="showDate()" required/> 
+           <span class="input-label"> 
+            <i ng-show="editTaskForm.startDate.$dirty" class="icon" ng-class="{ 'ion-ios7-close assertive' : editTaskForm.startDate.$invalid , 'ion-ios7-checkmark positive' : editTaskForm.startDate.$valid }"></i>
+          </span>
+        </ion-item>
+      
+        <!-- task start time -->
+        <ion-item class="item item-input item-icon-left item-icon-right ">
+          <span class="input-label"><i class="icon ion-android-time placeholder-icon"></i></span>
+          <input type="hidden" ng-model="task.time_in_ms"/>
+          <input type="text" class="col col-50" name="startTime" placeholder="Set Time (hh:mm)" ng-model="task.startTime" id="time" ng-click="showTime()" required/>
+           <span class="input-label"> 
+            <i ng-show="editTaskForm.startTime.$dirty" class="icon" ng-class="{ 'ion-ios7-close assertive' : editTaskForm.startTime.$invalid , 'ion-ios7-checkmark positive' : editTaskForm.startTime.$valid }"></i>
+          </span>
+        </ion-item>
+
+        <!-- task description -->
+        <ion-item class="item item-input item-icon-left item-icon-right">
+          <span class="input-label"><i class="icon ion-document-text placeholder-icon"></i></span>
+          <input type="text" class="col col-50" name="description" placeholder="Describe the task" ng-model="task.description" required></input>
+           <span class="input-label"> 
+            <i ng-show="editTaskForm.description.$dirty" class="icon" ng-class="{ 'ion-ios7-close assertive' : editTaskForm.description.$invalid , 'ion-ios7-checkmark positive' : editTaskForm.description.$valid }"></i>
+          </span>
+        </ion-item>
+
+        <!-- rewards -->
+        <ion-item class="item item-input item-icon-left item-icon-right ">
+          <span class="input-label"><i class="icon ion-sad-outline placeholder-icon"></i></span>
+          <input type="number" min="0" class="col col-50" name="averageAmount" placeholder="Average Amount" ng-model="task.Average" required></input>
+           <span class="input-label"> 
+            <i ng-show="editTaskForm.averageAmount.$dirty" class="icon" ng-class="{ 'ion-ios7-close assertive' : editTaskForm.averageAmount.$invalid , 'ion-ios7-checkmark positive' : editTaskForm.averageAmount.$valid }"></i>
+          </span>
+        </ion-item>
+
+        <ion-item class="item item-input item-icon-left item-icon-right ">
+          <span class="input-label"><i class="icon ion-happy-outline placeholder-icon"></i></span>
+          <input type="number" min="0" class="col col-50" name="goodAmount" placeholder="Good Amount" ng-model="task.Good" required></input>
+           <span class="input-label"> 
+            <i ng-show="editTaskForm.goodAmount.$dirty" class="icon" ng-class="{ 'ion-ios7-close assertive' : editTaskForm.goodAmount.$invalid , 'ion-ios7-checkmark positive' : editTaskForm.goodAmount.$valid }"></i>
+          </span>
+        </ion-item>
+
+        <ion-item class="item item-input item-icon-left item-icon-right ">
+          <span class="input-label"><i class="icon ion-happy placeholder-icon"></i></span>
+          <input type="number" min="0" class="col col-50" name="excellentAmount" placeholder="Excellent Amount" ng-model="task.Excellent" required></input>
+           <span class="input-label"> 
+            <i ng-show="editTaskForm.excellentAmount.$dirty" class="icon" ng-class="{ 'ion-ios7-close assertive' : editTaskForm.excellentAmount.$invalid , 'ion-ios7-checkmark positive' : editTaskForm.excellentAmount.$valid }"></i>
+          </span>
+        </ion-item>
+                
+        <!-- assign to -->
+<!--         <ion-item class="item item-icon-left item-icon-right ">
+          <i class="icon dark ion-android-contacts"></i>
+           <span class="input-label"> 
+           {{assignToUser.name}}
+            <i ng-show="editTaskForm.excellentAmount.$dirty" class="icon" ng-class="{ 'ion-ios7-close assertive' : editTaskForm.excellentAmount.$invalid , 'ion-ios7-checkmark positive' : editTaskForm.excellentAmount.$valid }"></i>
+            
+          </span>
+        </ion-item> -->
+
+      </ion-list>
+
+      <div class="padding-vertical">
+        <button type ="submit" ng-show = "task.isAvailable == 'true'" ng-disabled="editTaskForm.$invalid" class="button button-dark button-full">Update Task</button>
+      </div>
+    </form>
+   
+  </ion-content>
+</ion-view>

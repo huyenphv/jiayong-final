@@ -1,0 +1,195 @@
+	<ion-view view-title="{{task.name}}" animation="no-animation" cache-view="false" hide-back-button ="false">
+	<ion-view view-title="{{task.name}}" animation="no-animation" cache-view="false" hide-back-button ="false">
+	  <ion-content>
+	    <div class="list card">	
+			  <div class="item item-icon-left item-text-wrap">
+			  	<label class="item-stacked-label">
+	        	<span class="input-label">Description</span></label>
+			    <i class="icon ion-clipboard"></i>
+	    			{{task.description}}
+			  </div>
+
+			  <div class="item item-icon-left item-text-wrap">
+			  	<label class="item-stacked-label">
+	        	<span class="input-label">Status</span></label>
+			    <i class="icon ion-information-circled"></i>
+
+			    	<!-- status : In Progress -->
+			    	<div ng-if="(task.isAvailable == 'false' &&  task.isCompleted == 'false')">
+			    		In Progress
+			    	</div>
+
+			    	<!-- status : Available -->
+			    	<div ng-if="(task.isAvailable == 'true' && task.isRejected == 'false')">
+			    		Available
+			    	</div>
+
+			    	<!-- status : Completed -->
+			    	<div ng-if="(task.isCompleted == 'true' && task.isApproved == 'false' && task.isRejected == 'false')">
+			    		Pending
+			    	</div>
+
+			    	<!-- status : Rejected -->
+			    	<div ng-if="(task.isCompleted == 'true' && task.isApproved == 'true')">
+			    		Approved
+			    	</div>
+
+			    	<!-- status : Rejected -->
+			    	<div ng-if="(task.isRejected == 'true')">
+			    		Rejected
+			    	</div>
+
+			    	
+			  </div>
+
+			  	<div class="item item-icon-left item-text-wrapion">
+			  	 	<i class="icon ion-android-calendar"></i>
+				  	{{ task.startDate | date }} | {{ task.startTime | date:'shortTime' }}
+				</div>
+
+			  <div class="item item-icon-left item-text-wrap" ng-if="task.isCompleted == 'false'">
+				<label class="item-stacked-label">
+	        	<span class="input-label">Earnings</span></label>
+			    <div class="col-20">
+			    	<i class="icon ion-cash"></i>
+				</div> 
+				<table>
+					<tr>
+						<td class="padding-right">Average: ${{task.Average}}</td>
+						<td class="padding-right">Good: ${{task.Good}}</td>
+						<td class="padding-right">Excellent: ${{task.Excellent}}</td>
+					</tr>
+					</table>
+			  </div>
+	  		  <div class="item item-icon-left item-text-wrap" ng-if="task.isCompleted == 'true'">
+				<label class="item-stacked-label">
+	        	<span class="input-label">Earnings</span></label>
+			    <div class="col-20">
+			    	<i class="icon ion-cash"></i>
+				</div> 
+				<table>
+					<tr>
+						<td class="padding-right"> ${{task.reward}}</td>
+					</tr>
+					</table>
+			  </div>
+
+<!-- 	  		  <div class="item item-icon-left item-text-wrap" ng-show = "task.isCompleted == 'true' && task.name == 'Walking the dog'">
+			  	<label class="item-stacked-label">
+	        	<span class="input-label"><i class="icon ion-android-image"></i></span></label>
+			    
+	    		<img  my-src ng-repeat="photo in event.photos track by photo.id" photo="photo.image" data-size="org" class="full-image"/>
+	    		<img  ng-src="img/lucy.jpg" data-size="org" class="full-image"/>
+			  </div>
+	              <div class="item item-icon-left item-text-wrap" ng-show = "task.isCompleted == 'true' && task.name == 'Mop the living room floor'">
+	        <label class="item-stacked-label">
+	          <span class="input-label"><i class="icon ion-android-image"></i></span></label>
+	        
+	        <img  my-src ng-repeat="photo in event.photos track by photo.id" photo="photo.image" data-size="org" class="full-image"/>
+	        <img  ng-src="img/mop-floor.jpg" data-size="org" class="full-image"/>
+	      </div> -->
+	      <div class="item item-icon-left item-text-wrap" ng-show = "task.isCompleted == 'true' ">
+	        <label class="item-stacked-label">
+	          <span class="input-label"><i class="icon ion-android-image"></i></span></label>
+	        
+	        <img  my-src ng-repeat="photo in event.photos track by photo.id" photo="photo.image" data-size="org" class="full-image"/>
+	        <img  ng-src="img/shiny_dishes.jpg" data-size="org" class="full-image" ng-show = "showSink"/>
+	        <img  ng-src="img/cleaned_sink.jpg" data-size="org" class="full-image" ng-show = "!showSink"/>
+	      </div>
+	        <div class="row" ng-show = "task.isCompleted == 'true'">
+	           <div class="col col-25 item item-image" ng-click = "switchImage()" ng-show = "showSink" >
+	              <img ng-src="img/cleaned_sink.jpg">
+	           </div>
+   	           <div class="col col-25 item item-image" ng-click = "switchImage()" ng-show = "!showSink" >
+	              <img ng-src="img/shiny_dishes.jpg">
+	           </div>
+	        </div>
+		        <!-- task photos -->
+	        
+		        <ion-item ng-if="task.isAvailable=='false' && task.isCompleted == 'false' && task.isApproved == 'false'" class="item item-icon-left item-icon-right " ng-click="openCameraActionSheet()">
+		            <i class="icon icon-left ion-camera"></i>
+		            <span ng-hide="task.photos.length>0" class="fancy">Tap to select some photos..</span>
+		            <span ng-show="task.photos.length>0" class="fancy">Select more ?</span>
+		        </ion-item>
+
+		        <ion-item ng-if="task.isAvailable=='false' && task.isCompleted == 'false' && task.isApproved == 'false'" class="item item-icon-left item-icon-right ">
+		            <i class="icon icon-left ion-camera"></i>
+		            <!-- <span ng-hide="task.photos.length>0" class="fancy">Tap to select some photos..</span> -->
+				  	<input  type = "file" ng-model = "photo" ngf-select="uploadPhotos()" multiple
+          			accept="image/*"/>
+      				<!-- Upload Photos
+      				</button> -->
+			        <p>
+						Photos:
+					</p>
+				  	<ul>
+					    <li ng-repeat="photo in photos" style="font:smaller">{{f.name}} {{f.$errorParam}}
+					    	<img ng-repeat = "photo in task.photos" ng-src = "photo"/>
+					    </li>
+<!-- 					    <li ng-repeat="f in errFiles" style="font:smaller">{{f.name}} {{f.$error}} {{f.$errorParam}}
+					    </li> -->
+				    </ul>
+					<img ng-repeat = "photo in task.photos" ng-src = "photo"/>
+					
+		            <!-- <span ng-show="task.photos.length>0" class="fancy">Select more ?</span> -->
+		        </ion-item>
+		        
+
+<!-- 		        <div class="row" ng-if = "isCompleted == 'false'">
+		           <div  ng-repeat="photo in task.photos" class="col col-25 item item-image" ng-click="editPhoto()">
+		            <img ng-src=photo}}>
+		           </div>
+		        </div> -->
+				<div class="item item-icon-left item-text-wrap" ng-show = "task.isRejected == 'true'">
+					<i class="icon ion-email-unread"></i>
+					<span>{{task.rejectedMessage}}</span>
+				</div>
+		
+			  <!-- Send task for approval -->
+			  <div ng-show="task.isAvailable == 'false' && task.isCompleted == 'false' && task.isRejected == 'false'">
+			  
+			  	<div class = "row">
+				  	<button class="col col-50 button button-block button-balanced" type="button" ng-click="completeTask()" >
+				  		Complete Task
+				  	</button>
+				  	<button class="col col-50 button button-block button-assertive" type="button" ng-click = "withdrawTask()" >
+				  		Withdraw Task
+				  	</button>
+			  	</div>
+			  
+			</div>
+
+			<!-- Rejected Task -->
+			  <div ng-show="task.isRejected == 'true' && task.isProposed == 'false'">
+				  <center>
+				  	<button class="button button-balanced" type="button" ng-click="redoTask()" >
+				  		Re-do Task
+				  	</button>
+				  </center>
+			</div>
+
+
+			<!-- Take up Task -->
+			  <div ng-show="task.isAvailable == 'true' && task.isRejected == 'false'">
+			  <center>
+			  	<button class="button button-block button-balanced" type="button" ng-click="takeUpTask()" >
+			  		Take Up Task!
+			  	</button>
+			  </center>
+			</div>
+
+			<!-- Rejected Proposal -->
+			  <div ng-show="task.isRejected == 'true' && task.isProposed == 'true' && task.isAvailable == 'false'">
+			  <center>
+			  	<button class="button button-balanced" type="button" ui-sref="menu.tab.my-tasks.editProposal" >
+			  		Edit Proposal
+			  	</button>
+			  	<button class="button button-assertive" type="button" ng-click="removeTask()" >
+			  		Remove Task
+			  	</button>
+			  </center>
+			</div>
+
+
+	  </ion-content>
+	</ion-view>

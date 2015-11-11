@@ -1,0 +1,32 @@
+<ion-modal-view>
+  <ion-header-bar class="bar bar-header bar-stable item-input-inset">
+    <button class="button button-clear button-balanced" ng-click="cancelPhotoEdit()">Cancel</button>
+    <h1 class="title">Manage photos</h1>
+    <button class="button button-clear button-balanced" ng-click="donePhotoEdit()">Done</button>
+  </ion-header-bar>
+
+  <ion-content>
+    <div ng-repeat="photo in copyOfPhotos" class="col col-50 list card assertive" ng-show = "{{copyOfPhotos.length > 0}}">
+	  <a class="tab-item" ng-click="removePhoto($index)"  href="#">
+	      <i class="icon ion-android-close"></i> Remove
+	  </a>
+	  <div class="item item-image">
+        <img my-src photo="photo" data-size="thumbs"/>
+	  </div>
+
+	</div>
+    
+    <div ng-repeat="photo in newPhotos" class="col col-50 list card assertive" ng-show="newPhotos.length > 0">
+      
+	  <a class="tab-item" ng-click="removeNewPhoto($index)"  href="#">
+	      <i class="icon ion-android-close"></i> Remove
+	  </a>
+	  <div class="item item-image">
+        <img ng-src={{"data:image/jpeg;base64,"+photo}}>
+	  </div>
+
+	</div>
+
+  </ion-content>
+
+</ion-modal-view>

@@ -1,0 +1,53 @@
+<!--    <ion-header-bar class="bar-subheader">
+        <div class="button-bar">
+            <div class="button-bar">
+                <a class="button button-clear button-dark " ng-class="{'active' : activeTab == 1}" ng-click = "changeActiveTab(1)" >Pending</a>
+                <a class="button button-clear button-dark "  ng-class="{'active' : activeTab == 2}" ng-click = "changeActiveTab(2)" >Approved</a>
+
+            </div>
+        </div>
+  </ion-header-bar> -->
+<ion-view title="Browse Tasks" animation="no-animation" cache-view="false" hide-back-button ="true">
+
+ <ion-nav-buttons side="left">
+    <button menu-toggle="left"class="button button-icon button-clear button-dark ion-navicon"></button>
+  </ion-nav-buttons>
+  <ion-content class="has-header">
+  <ion-refresher pulling-text="Pull to refresh" on-refresh="refresh()"></ion-refresher>
+
+  <ion-list can-swipe="true" ng-show="currentUser.availableTasks.length != 0">
+    <ion-item ng-repeat="task in currentUser.availableTasks" ng-click = "detail(task)">
+
+         <a class="item item-thumbnail-left">
+          <img src="img/venkman.jpg">
+          <h2>{{task.name}}</h2>
+          <p>{{task.description}}</p>
+          <small>{{ task.startDate | date }} | {{ task.startTime | date:'shortTime' }}</small><br/>
+          <small> ${{task.Average}} </small>
+        </a>
+
+    </ion-item>
+  </ion-list> 
+<!-- tab for approved proposed tasks -->
+ <!--  <ion-list can-swipe="true" ng-show="currentUser.approvedProposedTasks.length != 0">
+    <ion-item ng-repeat="task in currentUser.approvedProposedTasks" ng-click = "detail(task)">
+        <a class="item item-thumbnail-left">
+          <img src="img/venkman.jpg">
+          <h2>{{task.name}}</h2>
+          <p>{{task.description}}</p>
+          <small>{{ task.startDate | date }} | {{ task.startTime | date:'shortTime' }}</small><br/>
+          <small> ${{task.Average}} </small>
+        </a> 
+
+    </ion-item>
+  </ion-list> -->
+    <ion-list can-swipe="true" ng-show="currentUser.availableTasks.length == 0">
+      <center>
+        <h2>Hey, {{currentUser.name}}</h2>
+        <p>Seems like there isn't any available task!</p>
+        <button class="button button-balanced" type="button"  ui-sref="menu.tab.propose-task">Propose One</button>
+      </center>
+    </ion-list> 
+  
+  </ion-content>
+</ion-view>
