@@ -30,7 +30,21 @@ $scope, $http, $ionicModal, $ionicActionSheet, $ionicLoading, $window)
   {
       $rootScope.activeTab = 1;
   }
-  
+  var newSignIn = JSON.parse($window.localStorage['newSignIn']) ;
+  if (newSignIn)
+  {
+    var alertPopup = $ionicPopup.alert({
+       title: 'TASK 1 OF 1',
+       template: '<center>Welcome to JiaYong web experiment. Thank you for your participant. Please proceed with "<b>TASK 1</b>".</center>'
+     });
+     alertPopup.then(function(res) {
+          newSignIn = false;
+          $window.localStorage['newSignIn'] = JSON.stringify(newSignIn);
+          $state.go('menu.tab.my-tasks',{},{reload:true});
+          // $ionicLoading.hide();
+    });
+       // $scope.$broadcast('scroll.refreshComplete');
+  }; 
   // $rootScope.activeTab = $scope.myCurrentTab;
   $scope.refresh = function(){
    var alertPopup = $ionicPopup.alert({
@@ -227,7 +241,6 @@ $scope, $http, $ionicModal, $ionicActionSheet, $ionicLoading, $window)
   // $scope.changeActiveTab = function(tab){
   //   $scope.activeTab = tab;  
   // }
-  $scope.currentUser = JSON.parse($window.localStorage.getItem("daisy"));
   $scope.detail = function(task){
       $state.go('menu.tab.view-available-task',{'id' : task.id});
   };
@@ -239,7 +252,7 @@ $scope, $http, $ionicModal, $ionicActionSheet, $ionicLoading, $window)
   // }
 })
 
-.controller('ViewMyProposedTaskDetailCtrl', function($rootScope, $http, $scope, $ionicActionSheet, $filter,$window, $state, $ionicLoading, $stateParams){
+.controller('ViewMyProposedTaskDetailCtrl', function($ionicPopup, $rootScope, $http, $scope, $ionicActionSheet, $filter,$window, $state, $ionicLoading, $stateParams){
   var config = { cache: false };
   // get individual task according to ID
   $scope.taskId = $stateParams.id;
@@ -258,6 +271,28 @@ $scope, $http, $ionicModal, $ionicActionSheet, $ionicLoading, $window)
         $scope.task = $filter('filter')($scope.allTasks, {id:$scope.taskId})[0];
       }
   }
+  var month = "" + (parseInt($scope.task.startDate.substr(3,2)));
+  if (month == 12){
+    var alertPopupTask1 = $ionicPopup.alert({
+       title: 'TASK 2 OF 3',
+       template: '<center> Congratulation! You have just completed <b>TASK 2</b>. Please proceed with "<b>TASK 3</b>".</center>'
+    });
+    // if (!$rootScope.task2Done){
+    alertPopupTask1.then(function(res) {
+      if (res)
+      {
+        var alertPopupTask2 = $ionicPopup.alert({
+           title: 'TASK 3 OF 3',
+           template: '<center> One  of  the  completed  task, “<b>Clean  the  windows</b>”  has  just  been rejected. Please <b>locate this task and view</b> its details."</center>'
+        });
+        alertPopupTask2.then(function(res) {
+          $rootScope.task2Done = true;
+          $state.go('menu.tab.my-tasks',{},{reload:true});
+        });
+      }
+    });  
+    // }
+  } 
   $scope.users = JSON.parse($window.localStorage.getItem("users"));
   $scope.submitToUser = $filter('filter')($scope.users, {id:$scope.task.assignTo})[0];
   $scope.goRepropose = function() {
@@ -594,9 +629,68 @@ $scope, $http, $ionicModal, $ionicActionSheet, $ionicLoading, $window)
         $scope.task = $filter('filter')($scope.allTasks, {id:$scope.taskId})[0];        
       }
     }
-  }
-      
+  } 
   // }
+    // var month = "" + (parseInt($scope.task.startDate.substr(3,2)));
+  // alert(month);
+  // alert
+  if ($scope.task.Average == 6){
+    var alertPopupTask1 = $ionicPopup.alert({
+       title: 'TASK 1 OF 3',
+       template: '<center> Congratulation! You have just completed <b>TASK 1</b>. Please proceed with "<b>TASK 2</b>".</center>'
+    });
+    // if (!$rootScope.task2Done){
+    alertPopupTask1.then(function(res) {
+      if (res)
+      {
+        var alertPopupTask2 = $ionicPopup.alert({
+           title: 'TASK 2 OF 3',
+           template: '<center> You have <b>proposed</b> a task recently but it status is still <b>pending</b>. Find and click on the task that can only be started in <b>December 2015</b>."</center>'
+        });
+        alertPopupTask2.then(function(res) {
+          $rootScope.task2Done = true;
+          $state.go('menu.tab.my-tasks',{},{reload:true});
+        });
+      }
+    });  
+    // }
+  }
+  if ($scope.task.name == "Clean  the  windows"){
+    var alertPopupTask1 = $ionicPopup.alert({
+       title: 'TASK 3 OF 3',
+       template: '<center> Congratulation! You have just completed the last task. One more step to the end of the experiment.</center>',
+       buttons: [
+        { text: 'Cancel' },
+        {
+          text: '<b>Save</b>',
+          type: 'button-positive',
+          onTap: function(e) {
+            $scope.showForm();
+            window.open('https://brenksw.typeform.com/to/lkj30y');
+          } 
+
+        }
+  
+      ]
+    });
+    alertPopupTask1.then(function(res) {
+      if (res)
+      {
+        // var alertPopupTask2 = $ionicPopup.alert({
+        //   title: 'TASK 2 OF 3',
+        //   template: '<center> You have <b>proposed</b> a task recently but it status is still <b>pending</b>. Find and click on the task that can only be started in <b>December 2015</b>."</center>'
+        // });
+        // alertPopupTask2.then(function(res) {
+        //   $rootScope.task2Done = true;
+          $state.go('menu.tab.my-tasks',{},{reload:true});
+        // });
+      }
+    });
+  }
+  $scope.showForm = function(){
+
+    var qs,js,q,s,d=document,gi=d.getElementById,ce=d.createElement,gt=d.getElementsByTagName,id='typef_orm',b='https://s3-eu-west-1.amazonaws.com/share.typeform.com/';if(!gi.call(d,id)){js=ce.call(d,'script');js.id=id;js.src=b+'share.js';q=gt.call(d,'script')[0];q.parentNode.insertBefore(js,q)}id=id+'_';if(!gi.call(d,id)){qs=ce.call(d,'link');qs.rel='stylesheet';qs.id=id;qs.href=b+'share-button.css';s=gt.call(d,'head')[0];s.appendChild(qs,s)}
+  }
   $scope.showSink = true;
   $scope.switchImage = function()
   {
@@ -869,20 +963,20 @@ $scope, $http, $ionicModal, $ionicActionSheet, $ionicLoading, $window)
     //   console.log(data);
     // })
     // $scope.task.photos = photos;
-    alert($scope.photo);
+    // alert($scope.photo);
     // $scope.errFiles = invalidPhotos;
      if ($scope.photo) {
-          alert('yay');
+          // alert('yay');
           Upload.upload({
               url: 'http://161.202.13.188:9000/file/upload',
               data: {file: $scope.photo}
           }).then(function (response) {
-            alert(response.config.data.file.name);
+            // alert(response.config.data.file.name);
               $timeout(function () {
                   $scope.task.photos.push(response.config.data.file.url);
               });
           }, function (resp) {
-            alert('haiz');
+            // alert('haiz');
               console.log('Error status: ' + resp.status);
           }, function (evt) {
             alert('huh');

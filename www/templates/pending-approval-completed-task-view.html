@@ -41,7 +41,6 @@
           </div>
 
         <!-- assign to -->
-        <img  my-src ng-repeat="photo in event.photos track by photo.id" photo="photo.image" data-size="org" class="full-image"/>
         <img  ng-src="img/shiny_dishes.jpg" data-size="org" class="full-image" ng-show = "showSink"/>
         <img  ng-src="img/cleaned_sink.jpg" data-size="org" class="full-image" ng-show = "!showSink"/>
         </div>
@@ -53,6 +52,7 @@
                 <img ng-src="img/shiny_dishes.jpg">
              </div>
         </div>
+        <img  ng-repeat = "photo in task.photos" ng-src="photo" data-size="org" class="col col-25 item item-image"/>
         <ion-item class="item item-icon-left item-icon-right " ng-click="showContacts()">
           <i class="icon dark ion-cash"></i>
           <span class="fancy">Reward ...</span>

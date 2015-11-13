@@ -25,6 +25,21 @@ $scope, $http, $ionicModal, $ionicActionSheet, $ionicLoading, $rootScope, $windo
   {
     $rootScope.activeTab = 1;
   }
+  var newSignIn = JSON.parse($window.localStorage['newSignIn']) ;
+  if (newSignIn)
+  {
+    var alertPopup = $ionicPopup.alert({
+       title: 'TASK 1 OF 1',
+       template: '<center>Welcome to JiaYong web experiment. Thank you for your participant. Please proceed with "<b>TASK 1</b>".</center>'
+     });
+     alertPopup.then(function(res) {
+          newSignIn = false;
+          $window.localStorage['newSignIn'] = JSON.stringify(newSignIn);
+          $state.go('menu.tab.my-tasks',{},{reload:true});
+          // $ionicLoading.hide();
+    });
+       // $scope.$broadcast('scroll.refreshComplete');
+  };
   
   $scope.refresh = function(){
    var alertPopup = $ionicPopup.alert({
@@ -81,6 +96,10 @@ $scope, $http, $ionicModal, $ionicActionSheet, $ionicLoading, $rootScope, $windo
     $state.go('menu.tab.view-completed-task',{'id':task.id});
   };
 
+  $scope.viewInProgressTask = function (task){
+    $state.go('menu.tab.view-completed-task',{'id':task.id});
+  };
+
   $scope.viewProposedTask = function(task){
     $state.go('menu.tab.pending-approval-task-view',{'id' :task.id});
   }
@@ -108,7 +127,12 @@ $scope, $http, $ionicModal, $ionicActionSheet, $ionicLoading, $rootScope, $windo
   if (typeof $scope.task === 'undefined'){
     $scope.allTasks = JSON.parse($window.localStorage['daisy']).rejectedTasks;
     console.log($scope.allTasks);
-    $scope.task = $filter('filter')($scope.allTasks, {id:$scope.taskId})[0];    
+    $scope.task = $filter('filter')($scope.allTasks, {id:$scope.taskId})[0];
+    if (typeof $scope.task === 'undefined'){
+      $scope.allTasks = JSON.parse($window.localStorage['daisy']).inProgressTasks;
+      console.log($scope.allTasks);
+      $scope.task = $filter('filter')($scope.allTasks, {id:$scope.taskId})[0];    
+    }    
   }
   $scope.showSink = true;
   $scope.switchImage = function()

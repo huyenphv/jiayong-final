@@ -31,8 +31,22 @@
                 <img ng-src="img/shiny_dishes.jpg">
              </div>
           </div>
+      <div class="item item-icon-left item-text-wrap" ng-show = "task.isCompleted == 'false'">
+      <label class="item-stacked-label">
+          <span class="input-label">Earnings</span></label>
+        <div class="col-20">
+          <i class="icon ion-cash"></i>
+      </div> 
+      <table>
+        <tr>
+          <td class="padding-right">Average: ${{task.Average}}</td>
+          <td class="padding-right">Good: ${{task.Good}}</td>
+          <td class="padding-right">Excellent: ${{task.Excellent}}</td>
+        </tr>
+        </table>
+      </div>
         <!-- assign to -->
-        <ion-item class="item item-icon-left item-icon-right ">
+        <ion-item class="item item-icon-left item-icon-right " ng-show = "task.isCompleted == 'true'">
           <i class="icon dark ion-cash"></i>
           <span class="fancy">Reward ...</span>
           <span> <b>${{task.reward}}</b>

@@ -6,12 +6,35 @@ angular.module('jiaYongAuth.controllers', [])
     window.location.href = 'index.html#/login';
   }, 2000);
 })
-.controller('LoginCtrl', function($scope, $state, $window, $filter, $ionicLoading, $http) {
+.controller('LoginCtrl', function($rootScope, $scope, $ionicModal, $state, $window, $filter, $ionicLoading, $http) {
   var address = "http://161.202.13.188:9000";
   // var address = "http://localhost:9000";
-  $scope.tryLogin = function(account) {
-    var config = { cache: false };
+       // temp modal
+  $scope.isAccepted = false;
+  $scope.accept = function(){
+    console.log($scope.isAccepted);
+    $scope.isAccepted = true;
+    console.log($scope.isAccepted);
+  }
+  $ionicModal.fromTemplateUrl('templates/modal-terms-conditions.html', function($ionicModal) {
+        $scope.modalTempData = $ionicModal;
+  }, {
+        scope: $scope,
+        focusFirstInput: true,
+        animation: 'slide-in-up'
+  });  
+    // open the modal for term and privacy
+  $scope.openTermsConditions = function() {
+    $scope.modalTempData.show();
+  };
+  // close the term and privacy model
+  $scope.close = function() {
+    $scope.modalTempData.hide();
+  };
 
+  $scope.tryLogin = function(account) {
+    console.log($scope.isAccepted);
+    var config = { cache: false };
     var loading = $ionicLoading.show({
       template: '<i class="icon ion-loading-c"></i> Logging in..'
     });
@@ -29,6 +52,9 @@ angular.module('jiaYongAuth.controllers', [])
           config)
         .success(function(data, status) { 
             $window.localStorage['currentUser'] = JSON.stringify(data);
+            // console.log($rootScope.newSignIn);
+            // $rootScope.newSignIn = true;
+            window.localStorage['newSignIn'] = JSON.stringify(true);
             if(account.email == "daisy@gmail.com")
             {
                 $window.localStorage['currentUser'] = JSON.stringify($filter('filter')(JSON.parse($window.localStorage['users']), {name:"Daisy"})[0]);
@@ -43,6 +69,7 @@ angular.module('jiaYongAuth.controllers', [])
                 $window.localStorage['daisy'] = JSON.stringify($filter('filter')(JSON.parse($window.localStorage['users']), {name:"Daisy"})[0]);
                 console.log($window.localStorage['luke']);
             }
+            $scope.isAccepted = false;
           
         }).error(function(data, status){
           $ionicLoading.hide();

@@ -7700,3 +7700,34 @@ a.button {
     position: fixed;
     background-color: transparent !important;
 }*/
+.a-footer{
+    bottom: 10px;
+}
+.footer{
+    text-align: center !important;
+}
+.item.item-text-wrap.center{
+    text-align: center !important;
+}
+.item.item-text-wrap.scrollable_body{
+    padding-top: 30px;
+    overflow-y: scroll !important;
+    height: 450px;
+}
+.scrollable {
+    position: absolute !important;
+    overflow: scroll !important;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: auto;
+    height: auto;
+}
+.bar.unfixed {
+    position: absolute !important;
+}
+.a-footer.unfixed {
+    bottom: 0;
+    text-align: center;
+}

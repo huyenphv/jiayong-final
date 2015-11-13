@@ -123,13 +123,16 @@
 						Photos:
 					</p>
 				  	<ul>
-					    <li ng-repeat="photo in photos" style="font:smaller">{{f.name}} {{f.$errorParam}}
+				  		<li ng-repeat = "photo in task.photos">
+				  			<img ng-src = "photo"/>
+			  			</li>
+<!-- 					    <li ng-repeat="photo in photos" style="font:smaller">{{f.name}} {{f.$errorParam}}
 					    	<img ng-repeat = "photo in task.photos" ng-src = "photo"/>
-					    </li>
+					    </li> -->
 <!-- 					    <li ng-repeat="f in errFiles" style="font:smaller">{{f.name}} {{f.$error}} {{f.$errorParam}}
 					    </li> -->
 				    </ul>
-					<img ng-repeat = "photo in task.photos" ng-src = "photo"/>
+					
 					
 		            <!-- <span ng-show="task.photos.length>0" class="fancy">Select more ?</span> -->
 		        </ion-item>

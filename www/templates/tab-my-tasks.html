@@ -31,7 +31,7 @@
 
    <div ng-show="activeTab==1">
       <div class = "list" can-swipe="true" ng-show="currentUser.inProgressTasks.length != 0" >
-         <div ng-repeat="task in currentUser.inProgressTasks" ng-click = "viewPendingApprovalForCompletedTask(task)" >
+         <div ng-repeat="task in currentUser.inProgressTasks" ng-click = "viewInProgressTask(task)" >
 
              <a class="item item-thumbnail-left">
               <img src="img/venkman.jpg">
@@ -40,9 +40,6 @@
               <small>{{ task.startDate | date }} | {{ task.startTime | date:'shortTime' }}</small><br/>
               <small> ${{task.Average}} </small>
             </a>
-              <span class="item-note">
-                Grammy
-              </span>
 
         </div>
       </div>
@@ -97,7 +94,7 @@
       </div>
     </div>
     <div class = "list" can-swipe="true" ng-show="currentUser.proposedTasks.length != 0">
-      <div ng-repeat="task in currentUser.rejectedTasks | filter:  {isProposed : 'true'}" ng-click = "viewProposedTask(task)">
+      <div ng-repeat="task in currentUser.rejectedTasks | filter:  {isProposed : 'true'}" ng-click = "viewRejectedTask(task)">
           <a class="item item-thumbnail-left">
             <img src="../img/venkman.jpg">
             <span class="item-note">

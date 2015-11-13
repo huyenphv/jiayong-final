@@ -39,7 +39,6 @@
             <i ng-show="newTaskForm.description.$dirty" class="icon" ng-class="{ 'ion-ios7-close assertive' : newTaskForm.description.$invalid , 'ion-ios7-checkmark positive' : newTaskForm.description.$valid }"></i>
           </span>
         </ion-item>
-
         <!-- rewards -->
         <ion-item class="item item-input item-icon-left item-icon-right ">
           <span class="input-label"><i class="icon ion-sad-outline placeholder-icon"></i></span>
@@ -49,6 +48,8 @@
           </span>
         </ion-item>
 
+        <!-- <div class="padding-vertical assertive text-center" ng-show="task.averageAmount > task.goodAmount || task.averageAmount > task.ExcellentAmount" id="message">Invalid average amount. It must be smaller than Good and Excellent Amount</div> -->
+
         <ion-item class="item item-input item-icon-left item-icon-right ">
           <span class="input-label"><i class="icon ion-happy-outline placeholder-icon"></i></span>
           <input type="number" min="0" class="col col-50" name="goodAmount" placeholder="Good Amount" ng-model="task.goodAmount" required></input>
@@ -57,6 +58,8 @@
           </span>
         </ion-item>
 
+        <div class="padding-vertical assertive text-center" ng-show="task.averageAmount >= task.goodAmount" id="message">Invalid good amount</div>
+
         <ion-item class="item item-input item-icon-left item-icon-right ">
           <span class="input-label"><i class="icon ion-happy placeholder-icon"></i></span>
           <input type="number" min="0" class="col col-50" name="excellentAmount" placeholder="Excellent Amount" ng-model="task.excellentAmount" required></input>
@@ -64,6 +67,8 @@
             <i ng-show="newTaskForm.excellentAmount.$dirty" class="icon" ng-class="{ 'ion-ios7-close assertive' : newTaskForm.excellentAmount.$invalid , 'ion-ios7-checkmark positive' : newTaskForm.excellentAmount.$valid }"></i>
           </span>
         </ion-item>
+        
+        <div class="padding-vertical assertive text-center" ng-show="task.goodAmount >= task.excellentAmount" id="message">Invalid excellent amount</div>
                 
         <!-- assign to -->
 <!--         <ion-item class="item item-icon-left item-icon-right " ng-click="showContacts()">

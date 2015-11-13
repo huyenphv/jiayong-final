@@ -1,16 +1,24 @@
-<div class="bar-stable bar bar-header nav-bar disable-user-behavior">
+<!-- <div class="bar-stable bar bar-header nav-bar disable-user-behavior">
   <div class="buttons left-buttons">
  
   </div>
   <h1 class="title" style="left: 86px; right: 86px;">JiaYong Login</h1>
   <div class="buttons right-buttons"></div>
-</div>
+</div> -->
+
 
 <ion-view title="Login" hide-back-button="true" hide-nav-bar="true">
   <ion-nav-buttons side="left">
     <a class="button button-icon ion-ios7-arrow-back" ui-sref="welcome"> Back</a>
   </ion-nav-buttons>
+
   <ion-content class="has-header" scroll="false">
+    <center><img ng-src = "img/jiayong.png" width = "300 px" height = "200px"/></center>
+    <br/>
+    <div class="padding-vertical text-center">
+      <p> Please read through and acknowledged this <a ng-click = openTermsConditions()><b><u>Consent Form</u></b></a> before logging into <b>JiaYong</b></p>
+    </div>
+    <br/>
     <div class="padding-vertical assertive text-center" ng-show="message">
     {{message}}
     </div>
@@ -31,7 +39,7 @@
                 
         </label>
         <div>
-          <button class="button button-block button-energized" type="submit" ng-disabled="loginForm.$invalid">Login</button>
+          <button class="button button-block button-energized" type="submit" ng-disabled="loginForm.$invalid || !isAccepted">Login</button>
         </div>
         <div class="text-center">
             Or <a ui-sref="signup">Create an account</a>
