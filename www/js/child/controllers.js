@@ -658,7 +658,7 @@ $scope, $http, $ionicModal, $ionicActionSheet, $ionicLoading, $window)
     });  
     // }
   }
-  if ($scope.task.name == "Wash the dishes"){
+  if ($scope.task.name == "Wash the dishes" && $scope.task.isRejected == 'true'){
     var alertPopupTask1 = $ionicPopup.alert({
        title: 'TASK 3 OF 3',
        template: '<center> Congratulation! You have just completed the last task. One more step to the end of the experiment.</center>',
@@ -666,7 +666,7 @@ $scope, $http, $ionicModal, $ionicActionSheet, $ionicLoading, $window)
         { text: 'Cancel' },
         {
           text: 'Proceed',
-          type: 'button-postive',
+          type: 'button-positive',
           onTap: function(e) {
             $scope.showForm();
             window.open('https://brenksw.typeform.com/to/lkj30y');
