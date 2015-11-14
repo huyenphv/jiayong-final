@@ -34,12 +34,23 @@ $scope, $http, $ionicModal, $ionicActionSheet, $ionicLoading, $window)
   if (newSignIn)
   {
     var alertPopup = $ionicPopup.alert({
-       title: 'TASK 1 OF 3',
+       title: 'WELCOME',
        template: '<center>Welcome to JiaYong web experiment. Thank you for your participant. Please proceed with "<b>TASK 1</b>".</center>'
      });
      alertPopup.then(function(res) {
-          newSignIn = false;
-          $window.localStorage['newSignIn'] = JSON.stringify(newSignIn);
+          if (res)
+          {
+            newSignIn = false;
+            $window.localStorage['newSignIn'] = JSON.stringify(newSignIn);
+            var alertPopupTask2 = $ionicPopup.alert({
+               title: 'TASK 1 OF 3',
+               template: '<center> Search and click on a task that you are currently undertaking with a <b>average reward is $6</b></center>'
+            });
+            alertPopupTask2.then(function(res) {
+              $rootScope.task2Done = true;
+              $state.go('menu.tab.my-tasks',{},{reload:true});
+            });
+          }
           $state.go('menu.tab.my-tasks',{},{reload:true});
           // $ionicLoading.hide();
     });
@@ -283,8 +294,8 @@ $scope, $http, $ionicModal, $ionicActionSheet, $ionicLoading, $window)
       {
         var alertPopupTask2 = $ionicPopup.alert({
            title: 'TASK 3 OF 3',
-           template: '<center> One  of  the  completed  task, “<b>Clean  the  windows</b>”  has  just  been rejected. Please <b>locate this task and view</b> its details."</center>'
-        });
+           template: '<center> One of the completed task, <b>“Wash the dishes”</b> has just been <b>rejected</b>. <b>Search and click</b> on this task.</center>'
+            });
         alertPopupTask2.then(function(res) {
           $rootScope.task2Done = true;
           $state.go('menu.tab.my-tasks',{},{reload:true});
@@ -645,7 +656,7 @@ $scope, $http, $ionicModal, $ionicActionSheet, $ionicLoading, $window)
       {
         var alertPopupTask2 = $ionicPopup.alert({
            title: 'TASK 2 OF 3',
-           template: '<center> You have <b>proposed</b> a task recently but it status is still <b>pending</b>. Find and click on the task that can only be started in <b>December 2015</b>."</center>'
+           template: '<center> You have <b>proposed</b> a task recently but it status is still <b>pending</b>. Search and click on the task that can only be started in <b>December 2015</b>."</center>'
         });
         alertPopupTask2.then(function(res) {
           $rootScope.task2Done = true;
@@ -658,7 +669,7 @@ $scope, $http, $ionicModal, $ionicActionSheet, $ionicLoading, $window)
   if ($scope.task.name == "Wash the dishes" && $scope.task.isRejected == 'true'){
     var alertPopupTask1 = $ionicPopup.alert({
        title: 'TASK 3 OF 3',
-       template: '<center> Congratulation! You have just completed the last task. One more step to the end of the experiment.</center>',
+       template: '<center> Congratulation! You have just <b>completed the last task</b>. One more step to the end of this experiment.</center>',
        buttons: [
         { text: 'Cancel' },
         {
