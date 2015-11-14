@@ -92,10 +92,13 @@ $scope, $http, $ionicModal, $ionicActionSheet, $ionicLoading, $window)
   }
 
   $scope.viewRejected = function(task){
+      alert('yo');
+      alert(task.isProposed);
       $state.go('menu.tab.view-my-task',{'id' : task.id});
   }
 
   $scope.viewProposed = function(task) {
+      alert('yo');
       $state.go('menu.tab.view-pending-proposed-task',{'id' : task.id});
   };
   // $scope.viewProposedRejected = function(task) {
@@ -655,15 +658,15 @@ $scope, $http, $ionicModal, $ionicActionSheet, $ionicLoading, $window)
     });  
     // }
   }
-  if ($scope.task.name == "Clean  the  windows"){
+  if ($scope.task.name == "Wash the dishes"){
     var alertPopupTask1 = $ionicPopup.alert({
        title: 'TASK 3 OF 3',
        template: '<center> Congratulation! You have just completed the last task. One more step to the end of the experiment.</center>',
        buttons: [
         { text: 'Cancel' },
         {
-          text: '<b>Save</b>',
-          type: 'button-positive',
+          text: 'Proceed',
+          type: 'button-postive',
           onTap: function(e) {
             $scope.showForm();
             window.open('https://brenksw.typeform.com/to/lkj30y');
