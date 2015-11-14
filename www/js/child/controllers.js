@@ -34,7 +34,7 @@ $scope, $http, $ionicModal, $ionicActionSheet, $ionicLoading, $window)
   if (newSignIn)
   {
     var alertPopup = $ionicPopup.alert({
-       title: 'TASK 1 OF 1',
+       title: 'TASK 1 OF 3',
        template: '<center>Welcome to JiaYong web experiment. Thank you for your participant. Please proceed with "<b>TASK 1</b>".</center>'
      });
      alertPopup.then(function(res) {
