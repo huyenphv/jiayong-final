@@ -92,13 +92,10 @@ $scope, $http, $ionicModal, $ionicActionSheet, $ionicLoading, $window)
   }
 
   $scope.viewRejected = function(task){
-      alert('yo');
-      alert(task.isProposed);
       $state.go('menu.tab.view-my-task',{'id' : task.id});
   }
 
   $scope.viewProposed = function(task) {
-      alert('yo');
       $state.go('menu.tab.view-pending-proposed-task',{'id' : task.id});
   };
   // $scope.viewProposedRejected = function(task) {
